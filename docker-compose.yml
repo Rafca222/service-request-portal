@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: service-request-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: service_requests
+    ports:
+      - "5432:5432" #maps port 5432 on machine to port 5432 inside the container bi postgress so apps on computer can reach it at localhost:5432 baadena
+    volumes:
+      - pg_data:/var/lib/postgresql/data #storage to store data when we restart asam trouh bel ghalat when we stop the container
+
+volumes:
+  pg_data:
