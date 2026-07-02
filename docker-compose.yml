@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432" #maps port 5432 on machine to port 5432 inside the container bi postgress so apps on computer can reach it at localhost:5432 baadena
     volumes:
-      - pg_data:/var/lib/postgresql/data #storage to store data when we restart asam trouh bel ghalat when we stop the container
+      - pg_data:/var/lib/postgresql/data #storage to store data when we restart ahsan ma trouh bel ghalat when we stop the container
 
 volumes:
   pg_data:
