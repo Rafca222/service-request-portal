@@ -1,20 +1,27 @@
-import { IsString, IsNotEmpty, IsIn, IsOptional } from 'class-validator';
+import { IsString, IsNotEmpty, IsIn, IsOptional,IsEmail } from 'class-validator';
 
 export class CreateServiceRequestDto {
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title!: string;
 
   @IsString()
   @IsNotEmpty()
-  description: string;
+  description!: string;
 
   @IsString()
   @IsIn(['IT', 'HR', 'Facilities', 'Finance'])
-  category: string;
+  category!: string;
 
   @IsOptional()
   @IsString()
   @IsIn(['LOW', 'MEDIUM', 'HIGH'])
   priority?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  requesterName: string;
+
+  @IsEmail()
+  requesterEmail: string;
 }

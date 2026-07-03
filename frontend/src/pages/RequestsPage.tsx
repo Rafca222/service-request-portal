@@ -92,6 +92,7 @@ export default function RequestsPage() {
           <div>
             <h3>{request.title}</h3>
             <p>{request.description}</p>
+            <p>👤 {request.requesterName} · 📧 {request.requesterEmail}</p>
             <p>📁 {request.category} &nbsp;·&nbsp; ⚡ {request.priority}</p>
             <span className={getBadgeClass(request.status)}>
               {request.status.replace('_', ' ')}

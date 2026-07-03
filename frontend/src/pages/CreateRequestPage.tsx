@@ -11,6 +11,8 @@ export default function CreateRequestPage() {
     description: '',
     category: 'IT',
     priority: 'MEDIUM',
+    requesterName: '',
+    requesterEmail: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -39,6 +41,29 @@ export default function CreateRequestPage() {
         {error && <p className="error">{error}</p>}
 
         <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Your Name</label>
+            <input
+              name="requesterName"
+              placeholder="Full name"
+              value={form.requesterName}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Your Email</label>
+            <input
+              name="requesterEmail"
+              type="email"
+              placeholder="your@email.com"
+              value={form.requesterEmail}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
           <div className="form-group">
             <label>Title</label>
             <input

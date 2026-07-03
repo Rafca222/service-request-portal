@@ -14,14 +14,16 @@ export default function EditRequestPage() {
     category: 'IT',
     priority: 'MEDIUM',
     status: 'OPEN',
+    requesterName: '',
+    requesterEmail: '',
   });
 
   useEffect(() => {
     const fetchRequest = async () => {
       try {
         const response = await serviceRequestsApi.getOne(id!);
-        const { title, description, category, priority, status } = response.data;
-        setForm({ title, description, category, priority, status });
+        const { title, description, category, priority, status, requesterName, requesterEmail } = response.data;
+        setForm({ title, description, category, priority, status, requesterName, requesterEmail });
       } catch {
         setError('Failed to load request');
       } finally {
@@ -59,6 +61,27 @@ export default function EditRequestPage() {
         {error && <p className="error">{error}</p>}
 
         <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Your Name</label>
+            <input
+              name="requesterName"
+              value={form.requesterName}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Your Email</label>
+            <input
+              name="requesterEmail"
+              type="email"
+              value={form.requesterEmail}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
           <div className="form-group">
             <label>Title</label>
             <input

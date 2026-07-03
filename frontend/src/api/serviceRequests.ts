@@ -7,6 +7,8 @@ export interface ServiceRequest {
   category: string;
   status: string;
   priority: string;
+  requesterName: string;
+  requesterEmail: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -16,6 +18,8 @@ export interface CreateServiceRequestData {
   description: string;
   category: string;
   priority?: string;
+  requesterName: string;
+  requesterEmail: string;
 }
 
 export interface UpdateServiceRequestData {
@@ -24,6 +28,8 @@ export interface UpdateServiceRequestData {
   category?: string;
   priority?: string;
   status?: string;
+  requesterName?: string;
+  requesterEmail?: string;
 }
 
 export const serviceRequestsApi = {
