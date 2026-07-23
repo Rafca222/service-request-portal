@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { serviceRequestsApi } from '../api/serviceRequests';
+import RequestForm from '../components/RequestForm';
 
 export default function CreateRequestPage() {
   const navigate = useNavigate();
@@ -20,101 +21,53 @@ export default function CreateRequestPage() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      await serviceRequestsApi.create(form);
-      navigate('/requests');
-    } catch {
-      setError('Failed to create request. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  e.preventDefault();
+
+  if (!form.requesterName.trim()) {
+    setError('Please enter your full name');
+    return;
+  }
+  if (!form.requesterEmail.trim()) {
+    setError('Please enter your email address');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.requesterEmail)) {
+    setError('Please enter a valid email address (e.g. name@example.com)');
+    return;
+  }
+  if (!form.title.trim()) {
+    setError('Please enter a title for your request');
+    return;
+  }
+  if (!form.description.trim()) {
+    setError('Please enter a description');
+    return;
+  }
+
+  try {
+    setLoading(true);
+    setError('');
+    await serviceRequestsApi.create(form);
+    navigate('/requests');
+  } catch {
+    setError('Failed to create request. Please try again.');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="container">
       <h1>New Request</h1>
       <p className="subtitle">Fill in the details below to submit a new service request</p>
-
-      <div className="form-card">
-        {error && <p className="error">{error}</p>}
-
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Your Name</label>
-            <input
-              name="requesterName"
-              placeholder="Full name"
-              value={form.requesterName}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Your Email</label>
-            <input
-              name="requesterEmail"
-              type="email"
-              placeholder="your@email.com"
-              value={form.requesterEmail}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Title</label>
-            <input
-              name="title"
-              placeholder="Brief summary of your request"
-              value={form.title}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Description</label>
-            <textarea
-              name="description"
-              placeholder="Describe your request in detail..."
-              value={form.description}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Category</label>
-            <select name="category" value={form.category} onChange={handleChange}>
-              <option value="IT">IT</option>
-              <option value="HR">HR</option>
-              <option value="Facilities">Facilities</option>
-              <option value="Finance">Finance</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label>Priority</label>
-            <select name="priority" value={form.priority} onChange={handleChange}>
-              <option value="LOW">Low</option>
-              <option value="MEDIUM">Medium</option>
-              <option value="HIGH">High</option>
-            </select>
-          </div>
-
-          <div className="form-actions">
-            <button type="submit" className="btn-primary" disabled={loading}>
-              {loading ? 'Submitting...' : '✦ Submit Request'}
-            </button>
-            <button type="button" className="btn-secondary" onClick={() => navigate('/requests')}>
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
+      <RequestForm
+        form={form}
+        loading={loading}
+        error={error}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+        onCancel={() => navigate('/requests')}
+      />
     </div>
   );
 }

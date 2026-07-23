@@ -58,7 +58,7 @@ export default function RequestsPage() {
           <p className="subtitle">Manage and track all internal service requests</p>
         </div>
         <button className="btn-primary" onClick={() => navigate('/requests/new')}>
-          + New Request
+          + Submit New Request
         </button>
       </div>
 
@@ -83,7 +83,7 @@ export default function RequestsPage() {
       {!loading && requests.length === 0 && (
         <div className="empty-state">
           <span className="emoji">🌸</span>
-          No requests yet — create your first one!
+          No service requests found. Click + New Request to get started
         </div>
       )}
 
@@ -100,10 +100,10 @@ export default function RequestsPage() {
           </div>
           <div className="actions">
             <button className="btn-secondary" onClick={() => navigate(`/requests/${request.id}/edit`)}>
-              ✏️ Edit
+               Edit
             </button>
             <button className="btn-danger" onClick={() => handleDelete(request.id)}>
-              🗑️ Delete
+               Delete
             </button>
           </div>
         </div>

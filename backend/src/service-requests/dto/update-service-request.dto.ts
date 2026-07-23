@@ -1,4 +1,4 @@
-import { IsString, IsIn, IsOptional } from 'class-validator';
+import { IsString, IsIn, IsOptional, IsEmail } from 'class-validator';
 
 export class UpdateServiceRequestDto {
   @IsOptional()
@@ -23,4 +23,12 @@ export class UpdateServiceRequestDto {
   @IsString()
   @IsIn(['OPEN', 'IN_PROGRESS', 'RESOLVED', 'CANCELLED'])
   status?: string;
+
+  @IsOptional()
+  @IsString()
+  requesterName?: string;
+
+  @IsOptional()
+  @IsEmail()
+  requesterEmail?: string;
 }

@@ -20,8 +20,8 @@ export class CreateServiceRequestDto {
 
   @IsString()
   @IsNotEmpty()
-  requesterName: string;
+  requesterName!: string;
 
   @IsEmail()
-  requesterEmail: string;
+  requesterEmail!: string;
 }
