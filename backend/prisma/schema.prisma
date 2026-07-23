@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js" 
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+model ServiceRequest {  //creates a db table with those properties.
+  id          String   @id @default(cuid()) //pk
+  title       String
+  description String
+  category    String   
+  status      String   @default("OPEN")  // status not specified? default is open
+  priority    String   @default("MEDIUM") // low, medium and high
+  requesterName   String
+  requesterEmail  String
+  createdAt   DateTime @default(now()) 
+  updatedAt   DateTime @updatedAt 
+}
